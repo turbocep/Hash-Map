@@ -48,6 +48,15 @@ class LinkedList
     end
   end
 
+  def find(key)
+    current = head
+    loop do
+      return current.value if current.key == key
+      return nil if current.next_node == nil
+      current = current.next_node
+    end
+  end
+
   def to_s
     string = ''
     current = head
@@ -59,10 +68,11 @@ class LinkedList
   end
 end
 
-# list = LinkedList.new
-# %w[a b c d e f].each_with_index do |element, index|
-#   list.append(element, index + 1)
-# end
+list = LinkedList.new
+%w[a b c d e f].each_with_index do |element, index|
+  list.append(element, index + 1)
+end
 
-# puts list
+puts list
+p list.find('g')
 

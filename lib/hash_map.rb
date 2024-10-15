@@ -33,13 +33,10 @@ class HashMap
   end
 end
 
-mapp = HashMap.new
-%w[a b c d e f g h i j k l m n o p q].each_with_index do |key, value|
-  mapp.set(key, value)
-end
+# mapp = HashMap.new
+# %w[a b c d e f g h i j k l m n o p q].each_with_index do |key, value|
+#   mapp.set(key, value)
+# end
 
-puts mapp.buckets
+# puts mapp.buckets
 
-mapp.set('q', 17)
-
-puts mapp.buckets
