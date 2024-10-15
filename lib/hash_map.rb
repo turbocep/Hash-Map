@@ -18,9 +18,16 @@ class HashMap
     hash_code
   end
 
+  def get_index(key)
+    hash(key) % buckets.length
+  end
+
+  def get_bucket(key)
+    buckets[get_index(key)]
+  end
+
   def set(key, value)
-    index = hash(key) % buckets.length
-    bucket = buckets[index]
+    bucket = get_bucket(key)
     # Case - empty bucket:
     return bucket.append(key, value) if bucket.length == 0
     # Case - keys match on bucket:
@@ -33,8 +40,19 @@ class HashMap
   end
 
   def get(key)
-    bucket = buckets[hash(key) % buckets.length]
-    bucket.find(key)
+    get_bucket(key).find(key)
+  end
+
+
+
+  #There must be a way better way to implement this:
+  def has?(key)
+    return false if get(key).nil?
+    true
+  end
+
+  def remove(key)
+    get_bucket(key).remove(key)
   end
 end
 
@@ -45,5 +63,5 @@ end
 
 puts mapp.buckets
 
-p mapp.get('r')
+
 

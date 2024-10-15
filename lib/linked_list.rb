@@ -66,6 +66,28 @@ class LinkedList
       current = current.next_node
     end
   end
+
+  def shift
+    value = head.value
+    self.head = head.next_node
+    value
+  end
+
+  def remove(key)
+    if head.key == key
+      return shift()
+    end
+    current = head
+    loop do
+      return nil if current.next_node == nil
+      if current.next_node.key == key
+        value = current.next_node.value
+        current.next_node = current.next_node.next_node
+        return value
+      end
+      current = current.next_node
+    end
+  end
 end
 
 list = LinkedList.new
@@ -74,5 +96,7 @@ list = LinkedList.new
 end
 
 puts list
-p list.find('g')
+puts list.remove('f')
+puts list
+
 
