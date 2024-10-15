@@ -88,15 +88,25 @@ class LinkedList
       current = current.next_node
     end
   end
+
+  def keys
+    current = head
+    keys = []
+    loop do
+      return keys if current.nil?
+      keys << current.key
+      current = current.next_node
+    end
+  end
 end
 
-list = LinkedList.new
-%w[a b c d e f].each_with_index do |element, index|
-  list.append(element, index + 1)
-end
+# list = LinkedList.new
+# %w[a b c d e f].each_with_index do |element, index|
+#   list.append(element, index + 1)
+# end
 
-puts list
-puts list.remove('f')
-puts list
+# puts list
+# p list.keys
+
 
 

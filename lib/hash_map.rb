@@ -68,6 +68,14 @@ class HashMap
   def clear
     self.buckets = Array.new(16) { LinkedList.new }
   end
+
+  def keys
+    keys = []
+    buckets.filter do | bucket |
+      keys.concat(bucket.keys)
+    end
+    keys
+  end
 end
 
 mapp = HashMap.new
@@ -76,10 +84,6 @@ mapp = HashMap.new
 end
 
 puts mapp.buckets
-puts mapp.length
-
-mapp.clear
-puts mapp.buckets
-puts mapp.length
+p mapp.keys
 
 
