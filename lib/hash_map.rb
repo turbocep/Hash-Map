@@ -19,25 +19,27 @@ class HashMap
   end
 
   def set(key, value)
-    hash = hash(key)
-    index = hash % buckets.length
+    index = hash(key) % buckets.length
+    bucket = buckets[index]
     # Case - empty bucket:
-    return buckets[index].append(key, value) if buckets[index].length == 0
+    return bucket.append(key, value) if bucket.length == 0
     # Case - keys match on bucket:
-    if buckets[index].contains_key?(key)
-      buckets[index].replace(key, value)
+    if bucket.contains_key?(key)
+      bucket.replace(key, value)
+    # Case - keys don't match but hashes do:
+    else
+      bucket.append(key, value)
     end
-    
-    
   end
 end
 
 mapp = HashMap.new
-mapp.set('a', 1)
+%w[a b c d e f g h i j k l m n o p q].each_with_index do |key, value|
+  mapp.set(key, value)
+end
 
 puts mapp.buckets
 
-mapp.set('a', 2)
+mapp.set('q', 17)
 
 puts mapp.buckets
-
