@@ -30,23 +30,20 @@ class HashMap
 
   def set(key, value)
     bucket = get_bucket(key)
-    # Case - empty bucket:
-    return bucket.append(key, value) if bucket.length == 0
-    # Case - keys match on bucket:
-    if bucket.contains_key?(key)
+    if bucket.length == 0
+      bucket.append(key, value)
+    elsif bucket.contains_key?(key)
       bucket.replace(key, value)
-    # Case - keys don't match but hashes do:
     else
       bucket.append(key, value)
     end
+    resize()
   end
 
   def get(key)
     get_bucket(key).find(key)
   end
-
-
-
+  
   #There must be a way better way to implement this:
   def has?(key)
     return false if get(key).nil?
@@ -65,8 +62,8 @@ class HashMap
     total
   end
 
-  def clear
-    self.buckets = Array.new(16) { LinkedList.new }
+  def clear(new_size = 16)
+    self.buckets = Array.new(new_size) { LinkedList.new }
   end
 
   def keys
@@ -92,16 +89,46 @@ class HashMap
     end
     entries
   end
+
+  def resize
+    if length() > load_factor * buckets.length
+      old_length = buckets.length
+      pre_resized = entries()
+      self.buckets = clear(old_length * 2)
+
+      pre_resized.each do | pair |
+        key, value = *pair
+        set(key, value)
+      end
+    end
+  end
 end
 
-mapp = HashMap.new
-%w[a b c d e f g h i j k l m n o p q].each_with_index do |key, value|
-  mapp.set(key, value)
+# TESTING
+test = HashMap.new
+
+keys = %w[apple banana carrot dog elephant frog grape hat].push('ice cream', 'jacket', 'kite', 'lion')
+values = %w[red yellow orange brown gray green purple black white blue pink golden]
+
+keys.each_with_index do |key, value|
+  test.set(key, values[value])
 end
 
-puts mapp.buckets
-p mapp.keys
-p mapp.values
-p mapp.entries
+test.set('moon', 'silver')
+puts test.buckets
+
+puts test.buckets
+p test.keys
+p test.values
+p test.entries
+
+
+
+
+
+
+
+
+
 
 
