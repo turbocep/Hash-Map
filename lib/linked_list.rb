@@ -98,6 +98,26 @@ class LinkedList
       current = current.next_node
     end
   end
+
+  def values
+    current = head
+    values = []
+    loop do
+      return values if current.nil?
+      values << current.value
+      current = current.next_node
+    end
+  end
+
+  def entries
+    current = head
+    entries = []
+    loop do
+      return entries if current.nil?
+      entries.push([current.key, current.value])
+      current = current.next_node
+    end
+  end
 end
 
 # list = LinkedList.new
@@ -106,7 +126,7 @@ end
 # end
 
 # puts list
-# p list.keys
+# p list.entries
 
 
 

@@ -76,6 +76,22 @@ class HashMap
     end
     keys
   end
+
+  def values
+    values = []
+    buckets.filter do | bucket |
+      values.concat(bucket.values)
+    end
+    values
+  end
+
+  def entries
+    entries = []
+    buckets.each do | bucket |
+      entries.concat(bucket.entries)
+    end
+    entries
+  end
 end
 
 mapp = HashMap.new
@@ -85,5 +101,7 @@ end
 
 puts mapp.buckets
 p mapp.keys
+p mapp.values
+p mapp.entries
 
 
