@@ -59,13 +59,10 @@ class LinkedList
   end
 end
 
-list = LinkedList.new
-%w[a b c d e f].each_with_index do |element, index|
-  list.append(element, index + 1)
-end
+# list = LinkedList.new
+# %w[a b c d e f].each_with_index do |element, index|
+#   list.append(element, index + 1)
+# end
 
-puts list
+# puts list
 
-list.replace('g', 12)
-
-puts list

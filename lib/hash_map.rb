@@ -25,7 +25,7 @@ class HashMap
     return buckets[index].append(key, value) if buckets[index].length == 0
     # Case - keys match on bucket:
     if buckets[index].contains_key?(key)
-      #replace new value under same key.
+      buckets[index].replace(key, value)
     end
     
     
@@ -33,7 +33,11 @@ class HashMap
 end
 
 mapp = HashMap.new
+mapp.set('a', 1)
 
+puts mapp.buckets
 
+mapp.set('a', 2)
 
+puts mapp.buckets
 
