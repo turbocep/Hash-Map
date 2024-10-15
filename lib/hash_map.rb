@@ -22,9 +22,11 @@ class HashMap
     hash = hash(key)
     index = hash % buckets.length
     # Case - empty bucket:
-    buckets[index].append(key, value) if buckets[index].length == 0
+    return buckets[index].append(key, value) if buckets[index].length == 0
     # Case - keys match on bucket:
-    
+    if buckets[index].contains_key?(key)
+      #replace new value under same key.
+    end
     
     
   end

@@ -39,6 +39,15 @@ class LinkedList
     end
   end
 
+  def replace(key, value)
+    current = head
+    loop do
+      return current.value = value if current.key == key
+      return false if current.next_node.nil?
+      current = current.next_node
+    end
+  end
+
   def to_s
     string = ''
     current = head
@@ -57,4 +66,6 @@ end
 
 puts list
 
-p list.contains_key?(2)
+list.replace('g', 12)
+
+puts list
