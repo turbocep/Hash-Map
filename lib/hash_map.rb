@@ -5,6 +5,8 @@ class HashMap
   attr_reader :load_factor
 
   def initialize(load_factor = 0.75)
+    # I could have made the following call #clear but that sacrifices LoB too 
+    # much for my taste.
     self.buckets = Array.new(16) { LinkedList.new }
     @load_factor = load_factor
   end
@@ -54,6 +56,18 @@ class HashMap
   def remove(key)
     get_bucket(key).remove(key)
   end
+
+  def length
+    total = 0
+    buckets.each do |bucket|
+      total += bucket.length
+    end
+    total
+  end
+
+  def clear
+    self.buckets = Array.new(16) { LinkedList.new }
+  end
 end
 
 mapp = HashMap.new
@@ -62,6 +76,10 @@ mapp = HashMap.new
 end
 
 puts mapp.buckets
+puts mapp.length
 
+mapp.clear
+puts mapp.buckets
+puts mapp.length
 
 
