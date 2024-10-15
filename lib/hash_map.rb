@@ -31,12 +31,19 @@ class HashMap
       bucket.append(key, value)
     end
   end
+
+  def get(key)
+    bucket = buckets[hash(key) % buckets.length]
+    bucket.find(key)
+  end
 end
 
-# mapp = HashMap.new
-# %w[a b c d e f g h i j k l m n o p q].each_with_index do |key, value|
-#   mapp.set(key, value)
-# end
+mapp = HashMap.new
+%w[a b c d e f g h i j k l m n o p q].each_with_index do |key, value|
+  mapp.set(key, value)
+end
 
-# puts mapp.buckets
+puts mapp.buckets
+
+p mapp.get('r')
 
