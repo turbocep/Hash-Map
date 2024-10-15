@@ -1,4 +1,4 @@
-require_relative 'node'
+require_relative 'node' # rubocop:disable Style/FrozenStringLiteralComment
 
 # Class LinkedList
 class LinkedList # rubocop:disable Metrics/ClassLength

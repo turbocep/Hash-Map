@@ -1,4 +1,4 @@
-require_relative 'linked_list_set'
+require_relative 'linked_list_set' # rubocop:disable Style/FrozenStringLiteralComment
 require_relative 'hash_map'
 
 # Class HashSet: Like HashSet but only keys.
@@ -6,18 +6,14 @@ class HashSet < HashMap
   attr_accessor :buckets
   attr_reader :load_factor
 
-  def initialize(load_factor = 0.75)
+  def initialize(load_factor = 0.75) # rubocop:disable Lint/MissingSuper
     self.buckets = Array.new(16) { LinkedListSet.new }
     @load_factor = load_factor
   end
 
   def set(key)
     bucket = get_bucket(key)
-    if bucket.length.zero?
-      bucket.key = key
-    elsif !bucket.contains_key?
-      bucket.append(key)
-    end
+    bucket.append(key) unless bucket.contains_key?(key)
     resize
   end
 
@@ -57,3 +53,22 @@ class HashSet < HashMap
     end
   end
 end
+
+# # TESTING:
+# test = HashSet.new
+
+# keys = %w[alfa bravo charlie delta echo foxtrot golf hotel india julia kilo]
+
+# keys.each do |key|
+#   test.set(key)
+# end
+
+# puts test.buckets
+# puts test.buckets.length
+# puts '-----------------'
+
+# test.set('lima')
+# test.set('mama')
+# test.set('zulu')
+
+# puts test.buckets

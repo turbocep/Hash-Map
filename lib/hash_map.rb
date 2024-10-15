@@ -1,4 +1,4 @@
-require_relative 'linked_list'
+require_relative 'linked_list' # rubocop:disable Style/FrozenStringLiteralComment
 
 # Class HashMap
 class HashMap
@@ -107,14 +107,14 @@ class HashMap
 end
 
 # TESTING
-test = HashMap.new
+# test = HashMap.new
 
-keys = %w[apple banana carrot dog elephant frog grape hat].push('ice cream', 'jacket', 'kite', 'lion')
-values = %w[red yellow orange brown gray green purple black white blue pink golden]
+# keys = %w[apple banana carrot dog elephant frog grape hat].push('ice cream', 'jacket', 'kite', 'lion')
+# values = %w[red yellow orange brown gray green purple black white blue pink golden]
 
-keys.each_with_index do |key, value|
-  test.set(key, values[value])
-end
+# keys.each_with_index do |key, value|
+#   test.set(key, values[value])
+# end
 
-test.set('moon', 'silver')
-puts test.buckets
+# test.set('moon', 'silver')
+# puts test.buckets

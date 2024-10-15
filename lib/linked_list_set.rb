@@ -3,6 +3,8 @@ require_relative 'linked_list'
 
 # Class LinkedListSet. Like LinkedList but for Hash Sets.
 class LinkedListSet < LinkedList
+  attr_accessor :head
+
   def append(key)
     return self.head = NodeSet.new(key) if head.nil?
 
