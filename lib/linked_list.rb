@@ -30,6 +30,15 @@ class LinkedList
     end
   end
 
+  def contains_key?(key)
+    current = head
+    loop do
+      return true if current.key == key
+      return false if current.next_node.nil?
+      current = current.next_node
+    end
+  end
+
   def to_s
     string = ''
     current = head
@@ -42,9 +51,10 @@ class LinkedList
 end
 
 list = LinkedList.new
+%w[a b c d e f].each_with_index do |element, index|
+  list.append(element, index + 1)
+end
 
-list.append('a', 1)
-list.append('b', 2)
-list.append('c', 3)
+puts list
 
-p list
+p list.contains_key?(2)

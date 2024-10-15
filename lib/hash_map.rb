@@ -21,9 +21,17 @@ class HashMap
   def set(key, value)
     hash = hash(key)
     index = hash % buckets.length
-    #if buckets[index]; implement length method for linked list.
+    # Case - empty bucket:
+    buckets[index].append(key, value) if buckets[index].length == 0
+    # Case - keys match on bucket:
+    
+    
+    
   end
 end
+
+mapp = HashMap.new
+
 
 
 
