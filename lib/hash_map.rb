@@ -1,16 +1,17 @@
-require_relative 'linked_list.rb'
+require_relative 'linked_list'
 
+# Class HashMap
 class HashMap
   attr_accessor :buckets
   attr_reader :load_factor
 
   def initialize(load_factor = 0.75)
-    # I could have made the following call #clear but that sacrifices LoB too 
+    # I could have made the following call #clear but that sacrifices LoB too
     # much for my taste.
     self.buckets = Array.new(16) { LinkedList.new }
     @load_factor = load_factor
   end
-  
+
   def hash(key)
     hash_code = 0
     prime_number = 31
@@ -30,23 +31,24 @@ class HashMap
 
   def set(key, value)
     bucket = get_bucket(key)
-    if bucket.length == 0
+    if bucket == 0 # rubocop:disable Style/NumericPredicate
       bucket.append(key, value)
     elsif bucket.contains_key?(key)
       bucket.replace(key, value)
     else
       bucket.append(key, value)
     end
-    resize()
+    resize
   end
 
   def get(key)
     get_bucket(key).find(key)
   end
-  
-  #There must be a way better way to implement this:
+
+  # There must be a way better way to implement this:
   def has?(key)
     return false if get(key).nil?
+
     true
   end
 
@@ -68,7 +70,7 @@ class HashMap
 
   def keys
     keys = []
-    buckets.filter do | bucket |
+    buckets.filter do |bucket|
       keys.concat(bucket.keys)
     end
     keys
@@ -76,7 +78,7 @@ class HashMap
 
   def values
     values = []
-    buckets.filter do | bucket |
+    buckets.filter do |bucket|
       values.concat(bucket.values)
     end
     values
@@ -84,22 +86,22 @@ class HashMap
 
   def entries
     entries = []
-    buckets.each do | bucket |
+    buckets.each do |bucket|
       entries.concat(bucket.entries)
     end
     entries
   end
 
   def resize
-    if length() > load_factor * buckets.length
-      old_length = buckets.length
-      pre_resized = entries()
-      self.buckets = clear(old_length * 2)
+    return unless length > load_factor * buckets.length
 
-      pre_resized.each do | pair |
-        key, value = *pair
-        set(key, value)
-      end
+    old_length = buckets.length
+    pre_resized = entries
+    self.buckets = clear(old_length * 2)
+
+    pre_resized.each do |pair|
+      key, value = *pair
+      set(key, value)
     end
   end
 end
@@ -116,19 +118,3 @@ end
 
 test.set('moon', 'silver')
 puts test.buckets
-
-puts test.buckets
-p test.keys
-p test.values
-p test.entries
-
-
-
-
-
-
-
-
-
-
-

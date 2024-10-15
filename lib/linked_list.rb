@@ -1,6 +1,7 @@
-require_relative 'node.rb'
+require_relative 'node'
 
-class LinkedList
+# Class LinkedList
+class LinkedList # rubocop:disable Metrics/ClassLength
   attr_accessor :head
 
   def initialize(node = nil)
@@ -11,12 +12,14 @@ class LinkedList
     current = head
     loop do
       return current if current.next_node.nil?
+
       current = current.next_node
     end
   end
 
   def append(key, value)
     return self.head = Node.new(key, value) if head.nil?
+
     tail.next_node = Node.new(key, value)
   end
 
@@ -25,6 +28,7 @@ class LinkedList
     count = 0
     loop do
       return count if current.nil?
+
       count += 1
       current = current.next_node
     end
@@ -33,8 +37,10 @@ class LinkedList
   def contains_key?(key)
     current = head
     loop do
+      return false if current.nil?
       return true if current.key == key
       return false if current.next_node.nil?
+
       current = current.next_node
     end
   end
@@ -44,6 +50,7 @@ class LinkedList
     loop do
       return current.value = value if current.key == key
       return false if current.next_node.nil?
+
       current = current.next_node
     end
   end
@@ -52,7 +59,8 @@ class LinkedList
     current = head
     loop do
       return current.value if current.key == key
-      return nil if current.next_node == nil
+      return nil if current.next_node.nil?
+
       current = current.next_node
     end
   end
@@ -62,6 +70,7 @@ class LinkedList
     current = head
     loop do
       return string << 'nil' if current.nil?
+
       string += " (#{current.key}: #{current.value}) -> "
       current = current.next_node
     end
@@ -73,13 +82,13 @@ class LinkedList
     value
   end
 
-  def remove(key)
-    if head.key == key
-      return shift()
-    end
+  def remove(key) # rubocop:disable Metrics/MethodLength
+    return shift if head.key == key
+
     current = head
     loop do
-      return nil if current.next_node == nil
+      return nil if current.next_node.nil?
+
       if current.next_node.key == key
         value = current.next_node.value
         current.next_node = current.next_node.next_node
@@ -94,6 +103,7 @@ class LinkedList
     keys = []
     loop do
       return keys if current.nil?
+
       keys << current.key
       current = current.next_node
     end
@@ -104,6 +114,7 @@ class LinkedList
     values = []
     loop do
       return values if current.nil?
+
       values << current.value
       current = current.next_node
     end
@@ -114,6 +125,7 @@ class LinkedList
     entries = []
     loop do
       return entries if current.nil?
+
       entries.push([current.key, current.value])
       current = current.next_node
     end
@@ -127,6 +139,3 @@ end
 
 # puts list
 # p list.entries
-
-
-
